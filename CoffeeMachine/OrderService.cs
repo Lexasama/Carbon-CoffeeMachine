@@ -6,11 +6,9 @@
         {
         }
 
-        public string CreateCommand(char drink, int sugar)
+        public string CreateCommand(char drink, int sugar, bool extraHot)
         {
-            return Command.ConvertToString(drink, sugar);
+            return Command.ConvertToString(drink, sugar, extraHot);
         }
     }
-
-
 }

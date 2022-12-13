@@ -2,6 +2,6 @@
 {
     public interface IOrderService
     {
-        public string CreateCommand(char drink, int sugar);
+        public string CreateCommand(char drink, int sugar, bool extraHot);
     }
 }

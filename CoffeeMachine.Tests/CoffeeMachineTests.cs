@@ -22,7 +22,7 @@ public class CoffeeMachineTests
     [InlineData('C', 2, "C:2:0")]
     public void DrinkMakerTests(char drink, int sugar, string expected)
     {
-        var result = _orderService.CreateCommand(drink, sugar);
+        var result = _orderService.CreateCommand(drink, sugar, false);
 
         Assert.Equal(expected, result);
     }
@@ -60,5 +60,24 @@ public class CoffeeMachineTests
         drinkMaker.Verify(ms => ms.MakeDrink(It.IsAny<string>()), Times.Never);
         drinkMaker.Verify(ms => ms.ForwardMessage(It.IsAny<string>()), Times.Once);
         drinkMaker.VerifyNoOtherCalls();
+    }
+
+    [Theory]
+    [InlineData('T', 1, "Th:1:0")]
+    [InlineData('H', 0, "Hh::")]
+    [InlineData('C', 2, "Ch:2:0")]
+    public void can_make_extra_hot_drinks(char drink, int sugar, string expected)
+    {
+        var result = _orderService.CreateCommand(drink, sugar, true);
+
+        Assert.Equal(expected, result);
+    }
+
+    [Fact]
+    public void can_make_orange_juice()
+    {
+        var result = _orderService.CreateCommand('O', 0, false);
+
+        Assert.Equal("O::", result);
     }
 }

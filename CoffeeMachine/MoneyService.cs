@@ -5,7 +5,12 @@
 
         public bool IsEnough(Drink drink, float money)
         {
-            return money > drink.Price;
+            return IsEnough(drink.Price, money);
+        }
+
+        public bool IsEnough(float expected, float given)
+        {
+            return given >= expected;
         }
     }
 }
