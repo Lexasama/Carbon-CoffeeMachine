@@ -1,3 +1,4 @@
+using System.ComponentModel.Design;
 using Moq;
 
 namespace CoffeeMachine.Tests;
@@ -8,12 +9,14 @@ public class CoffeeMachineTests
 
     private readonly Display _display;
     private readonly MoneyService _moneyService;
+    private readonly ReportService _reportService;
 
     public CoffeeMachineTests()
     {
         _orderService = new OrderService();
         _display = new Display();
         _moneyService = new MoneyService();
+        _reportService = new ReportService();
     }
 
     [Theory]
@@ -36,7 +39,7 @@ public class CoffeeMachineTests
             .Verifiable();
 
 
-        var sut = new CoffeeMachine(orderServiceMock.Object, drinkMaker.Object, _moneyService);
+        var sut = new CoffeeMachine(orderServiceMock.Object, drinkMaker.Object, _moneyService, _reportService);
 
         sut.MakeDrink(new Command('T', 1, 1));
 
@@ -53,7 +56,7 @@ public class CoffeeMachineTests
             .Verifiable();
 
 
-        var sut = new CoffeeMachine(orderServiceMock.Object, drinkMaker.Object, _moneyService);
+        var sut = new CoffeeMachine(orderServiceMock.Object, drinkMaker.Object, _moneyService, _reportService);
 
         sut.MakeDrink(new Command('T', 1, 0));
 
@@ -79,5 +82,20 @@ public class CoffeeMachineTests
         var result = _orderService.CreateCommand('O', 0, false);
 
         Assert.Equal("O::", result);
+    }
+    
+    [Fact]
+    public void can_get_report()
+    {
+        var sut = new ReportService();
+
+        var drinks = new List<Drink> { Drinks.Coffee, Drinks.OrangeJuice };
+
+        foreach (var drink in drinks)
+        {
+            sut.AddDrink(drink);
+        }
+
+        Assert.Equal($"coffee: 1\r\norange juice: 1\r\nTotal: 1,2", sut.GetReport());
     }
 }

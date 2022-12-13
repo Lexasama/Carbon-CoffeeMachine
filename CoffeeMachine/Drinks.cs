@@ -2,26 +2,26 @@
 {
     public static class Drinks
     {
-        private static readonly Drink coffee = new("coffee", 'C', 0.6f);
-        private static readonly Drink tea = new("tea", 'T', 0.4f);
-        private static readonly Drink chocolate = new("chocolate", 'H', 0.6f);
-        private static readonly Drink orangeJuice = new("orange juice", 'O', 0.6f);
+        public static readonly Drink Coffee = new("coffee", 'C', 0.6f);
+        public static readonly Drink Tea = new("tea", 'T', 0.4f);
+        public static readonly Drink Chocolate = new("chocolate", 'H', 0.6f);
+        public static readonly Drink OrangeJuice = new("orange juice", 'O', 0.6f);
 
 
         public static Dictionary<char, Drink> DrinksCode = new()
         {
-            { tea.Code, tea },
-            { coffee.Code, coffee },
-            { chocolate.Code, chocolate },
-            { orangeJuice.Code, orangeJuice },
+            { Tea.Code, Tea },
+            { Coffee.Code, Coffee },
+            { Chocolate.Code, Chocolate },
+            { OrangeJuice.Code, OrangeJuice },
         };
 
         public static readonly List<Drink> Menu = new()
         {
-            coffee,
-            tea,
-            chocolate,
-            orangeJuice
+            Coffee,
+            Tea,
+            Chocolate,
+            OrangeJuice
         };
 
         public static Drink GetDrink(char code)
