@@ -10,10 +10,6 @@
         {
             return Command.ConvertToString(drink, sugar);
         }
-
-        public void ForwardMessage(string message)
-        {
-        }
     }
 
 

@@ -11,21 +11,26 @@ namespace CoffeeMachine
             { 'C', "coffee" },
         };
 
-        private string DrinkName { get; set; }
-        public char DrinkCode { get; set; }
+        private string Name { get; set; }
+        public char Code { get; set; }
         public int Sugar { get; set; }
         public bool Stick { get; set; }
+        public float Cash { get; set; }
+        
 
-        public Command(char drinkCode, int sugar)
+        public Command(char code, int sugar, float cash = 0)
         {
-            DrinkCode = drinkCode;
+            Code = code;
             Sugar = sugar;
             Stick = Sugar > 0;
+            Cash = cash;
         }
+        
+        
 
         public string GetDrinkName()
         {
-            Drinks.TryGetValue(DrinkCode, out var key);
+            Drinks.TryGetValue(Code, out var key);
             return key;
         }
 
@@ -42,7 +47,7 @@ namespace CoffeeMachine
         {
             var result = string.Empty;
 
-            result = $"{command.DrinkCode}:";
+            result = $"{command.Code}:";
             if (command.Sugar == 0)
             {
                 return result + ":";
@@ -73,5 +78,7 @@ namespace CoffeeMachine
 
             return new Command(drinkCode, sugar);
         }
+        
+        
     }
 }
